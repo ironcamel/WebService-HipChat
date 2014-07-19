@@ -19,7 +19,8 @@ This module provides bindings for the
 # METHODS
 
 All methods return a hashref.
-The `$room` param can be a room id or name.
+The `$room` param can be the id or name of the room.
+The `$user` param can be the id, email address, or @mention name of the user.
 If a resource does not exist for the given parameters, undef is returned.
 
 ## get\_rooms
@@ -119,6 +120,114 @@ Example response:
         event => 'room_message',
         name  => 'hook1',
     });
+
+## send\_private\_msg
+
+    send_private_msg($user, { message => 'allo' });
+
+## get\_users
+
+    get_users()
+
+Example response:
+
+    {
+      items => [
+        {
+          id => 1,
+          links => { self => "https://hipchat.com/v2/user/1" },
+          mention_name => "magoo",
+          name => "Matt Wondercookie",
+        },
+        {
+          id => 3,
+          links => { self => "https://hipchat.com/v2/user/3" },
+          mention_name => "racer",
+          name => "Brian Wilson",
+        },
+      ],
+      links => { self => "https://hipchat.com/v2/user" },
+      maxResults => 100,
+      startIndex => 0,
+    }
+
+## get\_user
+
+    get_user($user)
+
+Example response:
+
+    {
+      created        => "2014-06-20T03:00:28",
+      email          => 'matt@foo.com',
+      group          => {
+                          id => 1,
+                          links => { self => "https://hipchat.com/v2/group/1" },
+                          name => "Everyone",
+                        },
+      id             => 1,
+      is_deleted     => 0,
+      is_group_admin => 1,
+      is_guest       => 0,
+      last_active    => 1405718128,
+      links          => { self => "https://hipchat.com/v2/user/1" },
+      mention_name   => "magoo",
+      name           => "Matt Wondercookie",
+      photo_url      => "https://hipchat.com/files/photos/1/abc.jpg",
+      presence       => {
+                          client => {
+                            type => "http://hipchat.com/client/linux",
+                            version => 98,
+                          },
+                          idle => 3853,
+                          is_online => 1,
+                          show => "away",
+                        },
+      timezone       => "America/New_York",
+      title          => "Hacker",
+      xmpp_jid       => '1_1@chat.hipchat.com',
+    }
+
+## get\_emoticons
+
+    get_emoticons()
+
+Example response:
+
+    {
+      items => [
+        {
+          id => 166,
+          links => { self => "https://hipchat.com/v2/emoticon/166" },
+          shortcut => "dog",
+          url => "https://hipchat.com/files/img/emoticons/1/dog.png",
+        },
+      ],
+      links => { self => "https://hipchat.com/v2/emoticon" },
+      maxResults => 100,
+      startIndex => 0,
+    }
+
+## get\_emoticon
+
+    get_emoticon()
+
+Example response:
+
+    {
+      creator => {
+        id => 11,
+        links => { self => "https://hipchat.com/v2/user/11" },
+        mention_name => "bob",
+        name => "Bob Ray",
+      },
+      height => 30,
+      id => 203,
+      links => { self => "https://hipchat.com/v2/emoticon/203" },
+      shortcut => "dog",
+      url => "https://hipchat.com/files/img/emoticons/1/dog.png",
+      width => 30,
+    }
 
 # AUTHOR
 

@@ -1,12 +1,14 @@
 package WebService::HipChat;
 use Moo;
-with 'WebService::HipChat::HTTP';
+with 'WebService::BaseClientRole';
 
 # VERSION
 
 use Carp qw(croak);
 
 has auth_token => ( is => 'ro', required => 1 );
+
+has '+base_url' => ( default => 'https://api.hipchat.com/v2' );
 
 sub BUILD {
     my ($self) = @_;
@@ -44,6 +46,35 @@ sub create_webhook {
     return $self->post("/room/$room/webhook", $data);
 }
 
+sub get_users {
+    my ($self) = @_;
+    return $self->get("/user");
+}
+
+sub get_user {
+    my ($self, $user) = @_;
+    croak '$user is required' unless $user;
+    return $self->get("/user/$user");
+}
+
+sub send_private_msg {
+    my ($self, $user, $data) = @_;
+    croak '$user is required' unless $user;
+    croak '$data is required' unless 'HASH' eq ref $data;
+    return $self->post("/user/$user/message", $data);
+}
+
+sub get_emoticons {
+    my ($self) = @_;
+    return $self->get("/emoticon");
+}
+
+sub get_emoticon {
+    my ($self, $emoticon) = @_;
+    croak '$emoticon is required' unless $emoticon;
+    return $self->get("/emoticon/$emoticon");
+}
+
 =head1 SYNOPSIS
 
     my $hc = WebService::HipChat->new( auth_token => 'abc' );
@@ -57,7 +88,8 @@ L<HipChat|https://www.hipchat.com/docs/apiv2> API v2.
 =head1 METHODS
 
 All methods return a hashref.
-The C<$room> param can be a room id or name.
+The C<$room> param can be the id or name of the room.
+The C<$user> param can be the id, email address, or @mention name of the user.
 If a resource does not exist for the given parameters, undef is returned.
 
 =head2 get_rooms
@@ -157,6 +189,114 @@ Example response:
         event => 'room_message',
         name  => 'hook1',
     });
+
+=head2 send_private_msg
+
+    send_private_msg($user, { message => 'allo' });
+
+=head2 get_users
+
+    get_users()
+
+Example response:
+
+    {
+      items => [
+        {
+          id => 1,
+          links => { self => "https://hipchat.com/v2/user/1" },
+          mention_name => "magoo",
+          name => "Matt Wondercookie",
+        },
+        {
+          id => 3,
+          links => { self => "https://hipchat.com/v2/user/3" },
+          mention_name => "racer",
+          name => "Brian Wilson",
+        },
+      ],
+      links => { self => "https://hipchat.com/v2/user" },
+      maxResults => 100,
+      startIndex => 0,
+    }
+
+=head2 get_user
+
+    get_user($user)
+
+Example response:
+
+    {
+      created        => "2014-06-20T03:00:28",
+      email          => 'matt@foo.com',
+      group          => {
+                          id => 1,
+                          links => { self => "https://hipchat.com/v2/group/1" },
+                          name => "Everyone",
+                        },
+      id             => 1,
+      is_deleted     => 0,
+      is_group_admin => 1,
+      is_guest       => 0,
+      last_active    => 1405718128,
+      links          => { self => "https://hipchat.com/v2/user/1" },
+      mention_name   => "magoo",
+      name           => "Matt Wondercookie",
+      photo_url      => "https://hipchat.com/files/photos/1/abc.jpg",
+      presence       => {
+                          client => {
+                            type => "http://hipchat.com/client/linux",
+                            version => 98,
+                          },
+                          idle => 3853,
+                          is_online => 1,
+                          show => "away",
+                        },
+      timezone       => "America/New_York",
+      title          => "Hacker",
+      xmpp_jid       => '1_1@chat.hipchat.com',
+    }
+
+=head2 get_emoticons
+
+    get_emoticons()
+
+Example response:
+
+    {
+      items => [
+        {
+          id => 166,
+          links => { self => "https://hipchat.com/v2/emoticon/166" },
+          shortcut => "dog",
+          url => "https://hipchat.com/files/img/emoticons/1/dog.png",
+        },
+      ],
+      links => { self => "https://hipchat.com/v2/emoticon" },
+      maxResults => 100,
+      startIndex => 0,
+    }
+
+=head2 get_emoticon
+
+    get_emoticon()
+
+Example response:
+
+    {
+      creator => {
+        id => 11,
+        links => { self => "https://hipchat.com/v2/user/11" },
+        mention_name => "bob",
+        name => "Bob Ray",
+      },
+      height => 30,
+      id => 203,
+      links => { self => "https://hipchat.com/v2/emoticon/203" },
+      shortcut => "dog",
+      url => "https://hipchat.com/files/img/emoticons/1/dog.png",
+      width => 30,
+    }
 
 =cut
 
