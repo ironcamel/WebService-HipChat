@@ -9,7 +9,7 @@ version 0.0001
 # SYNOPSIS
 
     my $hc = WebService::HipChat->new( auth_token => 'abc' );
-    my $rooms = $hc->get_rooms->{items};
+    $hc->send_notification('Room42', { color => 'green', message => 'allo' });
 
 # DESCRIPTION
 
@@ -19,6 +19,7 @@ This module provides bindings for the
 # METHODS
 
 All methods return a hashref.
+The `$room` param can be a room id or name.
 If a resource does not exist for the given parameters, undef is returned.
 
 ## get\_rooms
@@ -52,9 +53,9 @@ Example response:
 
 ## get\_room
 
-    get_room($room_id)
+    get_room($room)
 
-Returns the room for the given $room\_id
+Returns the room for the given $room name.
 
 Example response:
 
@@ -85,13 +86,35 @@ Example response:
       xmpp_jid => "1_general_discussion\@conf.btf.hipchat.com",
     }
 
-## get\_room\_webhooks
+## send\_notification
 
-    get_room_webhooks()
+    send_notification($room, { color => 'green', message => 'allo' });
 
-## create\_room\_webhook
+## get\_webhooks
 
-    create_room_webhook($room_id, {
+    get_webhooks()
+
+Example response:
+
+    {
+      items => [
+        {
+          event => "room_message",
+          id => 1,
+          links => { self => "https://hipchat.com/v2/room/API/webhook/1" },
+          name => "hook1",
+          pattern => undef,
+          url => "http://yourdomain.org/hipchat-webhook",
+        },
+      ],
+      links => { self => "https://hipchat.com/v2/room/API/webhook" },
+      maxResults => 100,
+      startIndex => 0,
+    }
+
+## create\_webhook
+
+    create_webhook($room, {
         url   => 'http://yourdomain.org/hipchat-webhook'
         event => 'room_message',
         name  => 'hook1',

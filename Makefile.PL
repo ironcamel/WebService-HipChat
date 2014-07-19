@@ -21,6 +21,7 @@ my %WriteMakefileArgs = (
   "LICENSE" => "perl",
   "NAME" => "WebService::HipChat",
   "PREREQ_PM" => {
+    "Carp" => 0,
     "HTTP::Request::Common" => 0,
     "HTTP::Response::Stringable" => 0,
     "JSON" => 0,
@@ -44,6 +45,7 @@ my %WriteMakefileArgs = (
 
 
 my %FallbackPrereqs = (
+  "Carp" => 0,
   "File::Spec" => 0,
   "HTTP::Request::Common" => 0,
   "HTTP::Response::Stringable" => 0,

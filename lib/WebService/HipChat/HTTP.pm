@@ -104,7 +104,6 @@ sub _log_response {
 
 sub log {
     my ($self, $msg) = @_;
-    print STDERR "$msg\n";
     return unless $self->logger;
     $self->logger->DEBUG($msg);
 }
