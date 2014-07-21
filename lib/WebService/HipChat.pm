@@ -39,6 +39,16 @@ sub update_room {
     return $self->put("/room/$room", $data);
 }
 
+sub set_topic {
+    my ($self, $room, $topic) = @_;
+    croak '$room is required' unless $room;
+    croak '$topic is required' unless $topic;
+    if ( 'HASH' eq ref $topic ) {
+        $topic = $topic->{topic} or croak '$topic is required';
+    }
+    return $self->put("/room/$room/topic", { topic => $topic });
+}
+
 sub delete_room {
     my ($self, $room) = @_;
     croak '$room is required' unless $room;
@@ -222,6 +232,10 @@ Example response:
         privacy             => "public",
         topic               => "funny jokes",
     });
+
+=head2 set_topic
+
+    set_topic($room, 'new topic');
 
 =head2 delete_room
 

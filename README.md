@@ -115,6 +115,10 @@ Example response:
         topic               => "funny jokes",
     });
 
+## set\_topic
+
+    set_topic($room, 'new topic');
+
 ## delete\_room
 
     delete_room($room)
