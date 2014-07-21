@@ -8,8 +8,16 @@ version 0.0001
 
 # SYNOPSIS
 
-    my $hc = WebService::HipChat->new( auth_token => 'abc' );
+    my $hc = WebService::HipChat->new(auth_token => 'abc');
     $hc->send_notification('Room42', { color => 'green', message => 'allo' });
+
+    # get paged results:
+    my $res = $hc->get_emoticons;
+    my @emoticons = @{ $res->{items} };
+    while (my $next_link = $res->{links}{next}) {
+        $res = $hc->get($next_link);
+        push @emoticons, @{ $res->{items} };
+    }
 
 # DESCRIPTION
 
@@ -56,8 +64,6 @@ Example response:
 
     get_room($room)
 
-Returns the room for the given $room name.
-
 Example response:
 
     {
@@ -87,13 +93,39 @@ Example response:
       xmpp_jid => "1_general_discussion\@conf.btf.hipchat.com",
     }
 
+## create\_room
+
+    create_room({ name => 'monkeys' })
+
+Example response:
+
+    {
+      id => 46,
+      links => { self => "https://hipchat.com/v2/room/46" },
+    }
+
+## update\_room
+
+    update_room($room, {
+        is_archived         => JSON::false,
+        is_guest_accessible => JSON::false,
+        name                => "Jokes",
+        owner               => { id => 17 },
+        privacy             => "public",
+        topic               => "funny jokes",
+    });
+
+## delete\_room
+
+    delete_room($room)
+
 ## send\_notification
 
     send_notification($room, { color => 'green', message => 'allo' });
 
 ## get\_webhooks
 
-    get_webhooks()
+    get_webhooks($room)
 
 Example response:
 

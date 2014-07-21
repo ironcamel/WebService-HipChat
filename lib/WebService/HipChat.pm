@@ -26,6 +26,25 @@ sub get_room {
     return $self->get("/room/$room");
 }
 
+sub create_room {
+    my ($self, $data) = @_;
+    croak '$data is required' unless 'HASH' eq ref $data;
+    return $self->post("/room", $data);
+}
+
+sub update_room {
+    my ($self, $room, $data) = @_;
+    croak '$room is required' unless $room;
+    croak '$data is required' unless 'HASH' eq ref $data;
+    return $self->put("/room/$room", $data);
+}
+
+sub delete_room {
+    my ($self, $room) = @_;
+    croak '$room is required' unless $room;
+    return $self->delete("/room/$room");
+}
+
 sub send_notification {
     my ($self, $room, $data) = @_;
     croak '$room is required' unless $room;
@@ -133,8 +152,6 @@ Example response:
 
     get_room($room)
 
-Returns the room for the given $room name.
-
 Example response:
 
     {
@@ -164,13 +181,39 @@ Example response:
       xmpp_jid => "1_general_discussion\@conf.btf.hipchat.com",
     }
 
+=head2 create_room
+
+    create_room({ name => 'monkeys' })
+
+Example response:
+
+    {
+      id => 46,
+      links => { self => "https://hipchat.com/v2/room/46" },
+    }
+
+=head2 update_room
+
+    update_room($room, {
+        is_archived         => JSON::false,
+        is_guest_accessible => JSON::false,
+        name                => "Jokes",
+        owner               => { id => 17 },
+        privacy             => "public",
+        topic               => "funny jokes",
+    });
+
+=head2 delete_room
+
+    delete_room($room)
+
 =head2 send_notification
 
     send_notification($room, { color => 'green', message => 'allo' });
 
 =head2 get_webhooks
 
-    get_webhooks()
+    get_webhooks($room)
 
 Example response:
 
