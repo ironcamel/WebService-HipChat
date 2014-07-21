@@ -23,7 +23,7 @@ my %WriteMakefileArgs = (
   "PREREQ_PM" => {
     "Carp" => 0,
     "Moo" => "1.005000",
-    "WebService::BaseClientRole" => 0
+    "WebService::BaseClientRole" => "0.0004"
   },
   "TEST_REQUIRES" => {
     "File::Spec" => 0,
@@ -47,7 +47,7 @@ my %FallbackPrereqs = (
   "IPC::Open3" => 0,
   "Moo" => "1.005000",
   "Test::More" => 0,
-  "WebService::BaseClientRole" => 0,
+  "WebService::BaseClientRole" => "0.0004",
   "strict" => 0,
   "warnings" => 0
 );
