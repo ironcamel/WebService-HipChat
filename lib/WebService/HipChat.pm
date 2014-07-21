@@ -77,8 +77,16 @@ sub get_emoticon {
 
 =head1 SYNOPSIS
 
-    my $hc = WebService::HipChat->new( auth_token => 'abc' );
+    my $hc = WebService::HipChat->new(auth_token => 'abc');
     $hc->send_notification('Room42', { color => 'green', message => 'allo' });
+
+    # get paged results:
+    my $res = $hc->get_emoticons;
+    my @emoticons = @{ $res->{items} };
+    while (my $next_link = $res->{links}{next}) {
+        $res = $hc->get($next_link);
+        push @emoticons, @{ $res->{items} };
+    }
 
 =head1 DESCRIPTION
 
