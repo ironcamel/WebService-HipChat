@@ -157,6 +157,44 @@ Example response:
 
     send_private_msg($user, { message => 'allo' });
 
+## get\_members
+
+    get_members($room);
+
+Example response:
+
+    {
+      items => [
+        {
+          id => 73,
+          links => { self => "https://hipchat.com/v2/user/73" },
+          mention_name => "momma",
+          name => "Yo Momma",
+        },
+        {
+          id => 23,
+          links => { self => "https://hipchat.com/v2/user/23" },
+          mention_name => "jackie",
+          name => "Jackie Chan",
+        },
+      ],
+      links => { self => "https://hipchat.com/v2/room/Test/member" },
+      maxResults => 100,
+      startIndex => 0,
+    }
+
+## add\_member
+
+Adds a user to a room.
+
+    add_member($room, $user);
+
+## remove\_member
+
+Removes a user from a room.
+
+    remove_member($room, $user);
+
 ## get\_users
 
     get_users()

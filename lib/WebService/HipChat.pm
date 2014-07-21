@@ -65,6 +65,26 @@ sub create_webhook {
     return $self->post("/room/$room/webhook", $data);
 }
 
+sub get_members {
+    my ($self, $room) = @_;
+    croak '$room is required' unless $room;
+    return $self->get("/room/$room/member");
+}
+
+sub add_member {
+    my ($self, $room, $user) = @_;
+    croak '$room is required' unless $room;
+    croak '$user is required' unless $user;
+    return $self->put("/room/$room/member/$user", {});
+}
+
+sub remove_member {
+    my ($self, $room, $user) = @_;
+    croak '$room is required' unless $room;
+    croak '$user is required' unless $user;
+    return $self->delete("/room/$room/member/$user");
+}
+
 sub get_users {
     my ($self) = @_;
     return $self->get("/user");
@@ -244,6 +264,44 @@ Example response:
 =head2 send_private_msg
 
     send_private_msg($user, { message => 'allo' });
+
+=head2 get_members
+
+    get_members($room);
+
+Example response:
+
+    {
+      items => [
+        {
+          id => 73,
+          links => { self => "https://hipchat.com/v2/user/73" },
+          mention_name => "momma",
+          name => "Yo Momma",
+        },
+        {
+          id => 23,
+          links => { self => "https://hipchat.com/v2/user/23" },
+          mention_name => "jackie",
+          name => "Jackie Chan",
+        },
+      ],
+      links => { self => "https://hipchat.com/v2/room/Test/member" },
+      maxResults => 100,
+      startIndex => 0,
+    }
+
+=head2 add_member
+
+Adds a user to a room.
+
+    add_member($room, $user);
+
+=head2 remove_member
+
+Removes a user from a room.
+
+    remove_member($room, $user);
 
 =head2 get_users
 
