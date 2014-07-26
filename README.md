@@ -4,7 +4,7 @@ WebService::HipChat
 
 # VERSION
 
-version 0.0100
+version 0.0200
 
 # SYNOPSIS
 
