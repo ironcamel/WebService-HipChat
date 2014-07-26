@@ -4,7 +4,7 @@ WebService::HipChat
 
 # VERSION
 
-version 0.0200
+version 0.0201
 
 # SYNOPSIS
 
@@ -22,7 +22,8 @@ version 0.0200
 # DESCRIPTION
 
 This module provides bindings for the
-[HipChat](https://www.hipchat.com/docs/apiv2) API v2.
+[HipChat API v2](https://www.hipchat.com/docs/apiv2).
+It also provides the command line utility [hipchat-send](http://search.cpan.org/perldoc?hipchat-send).
 
 # METHODS
 

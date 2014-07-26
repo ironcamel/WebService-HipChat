@@ -12,8 +12,8 @@ my $auth_token = $ENV{HIPCHAT_AUTH_TOKEN};
 my $base_url = $ENV{HIPCHAT_BASE_URL};
 
 GetOptions(
-    "auth_token=s" => \$auth_token,
-    "base_url=s"   => \$base_url,
+    "auth-token=s" => \$auth_token,
+    "base-url=s"   => \$base_url,
     "color=s"      => \$color,
     "help"         => \$help,
     "room=s"       => \$room,
@@ -66,10 +66,10 @@ Examples:
     -r, --room
         Required. The id or name of the room to send the message to.
 
-    -a, --auth_token
+    -a, --auth-token
         Required unless $HIPCHAT_AUTH_TOKEN env var exists.
 
-    -b, --base_url
+    -b, --base-url
         Optional. Overrides $HIPCHAT_BASE_URL env var.
 
     -c, --color

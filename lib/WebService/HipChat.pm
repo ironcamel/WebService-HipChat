@@ -140,7 +140,8 @@ sub get_emoticon {
 =head1 DESCRIPTION
 
 This module provides bindings for the
-L<HipChat|https://www.hipchat.com/docs/apiv2> API v2.
+L<HipChat API v2|https://www.hipchat.com/docs/apiv2>.
+It also provides the command line utility L<hipchat-send>.
 
 =head1 METHODS
 
