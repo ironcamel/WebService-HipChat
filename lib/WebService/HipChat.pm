@@ -124,6 +124,12 @@ sub get_emoticon {
     return $self->get("/emoticon/$emoticon");
 }
 
+sub next {
+    my ($self, $data) = @_;
+    croak '$data is required' unless 'HASH' eq ref $data;
+    return $self->get($data->{links}{next});
+}
+
 =head1 SYNOPSIS
 
     my $hc = WebService::HipChat->new(auth_token => 'abc');
@@ -132,8 +138,7 @@ sub get_emoticon {
     # get paged results:
     my $res = $hc->get_emoticons;
     my @emoticons = @{ $res->{items} };
-    while (my $next_link = $res->{links}{next}) {
-        $res = $hc->get($next_link);
+    while ($res = $hc->next($res)) {
         push @emoticons, @{ $res->{items} };
     }
 
@@ -420,6 +425,20 @@ Example response:
       shortcut => "dog",
       url => "https://hipchat.com/files/img/emoticons/1/dog.png",
       width => 30,
+    }
+
+=head2 next
+
+    next($data)
+
+Returns the next page of data for paginated responses.
+
+Example:
+
+    my $res = $hc->get_emoticons;
+    my @emoticons = @{ $res->{items} };
+    while ($res = $hc->next($res)) {
+        push @emoticons, @{ $res->{items} };
     }
 
 =cut

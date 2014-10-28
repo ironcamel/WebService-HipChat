@@ -4,7 +4,7 @@ WebService::HipChat
 
 # VERSION
 
-version 0.0201
+version 0.0300
 
 # SYNOPSIS
 
@@ -14,8 +14,7 @@ version 0.0201
     # get paged results:
     my $res = $hc->get_emoticons;
     my @emoticons = @{ $res->{items} };
-    while (my $next_link = $res->{links}{next}) {
-        $res = $hc->get($next_link);
+    while ($res = $hc->next($res)) {
         push @emoticons, @{ $res->{items} };
     }
 
@@ -302,6 +301,20 @@ Example response:
       shortcut => "dog",
       url => "https://hipchat.com/files/img/emoticons/1/dog.png",
       width => 30,
+    }
+
+## next
+
+    next($data)
+
+Returns the next page of data for paginated responses.
+
+Example:
+
+    my $res = $hc->get_emoticons;
+    my @emoticons = @{ $res->{items} };
+    while ($res = $hc->next($res)) {
+        push @emoticons, @{ $res->{items} };
     }
 
 # AUTHOR
