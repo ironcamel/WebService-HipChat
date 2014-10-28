@@ -127,7 +127,8 @@ sub get_emoticon {
 sub next {
     my ($self, $data) = @_;
     croak '$data is required' unless 'HASH' eq ref $data;
-    return $self->get($data->{links}{next});
+    my $next = $data->{links}{next} or return undef;
+    return $self->get($next);
 }
 
 =head1 SYNOPSIS
