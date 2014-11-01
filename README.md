@@ -4,7 +4,7 @@ WebService::HipChat
 
 # VERSION
 
-version 0.0400
+version 0.0401
 
 # SYNOPSIS
 
@@ -205,7 +205,7 @@ Removes a user from a room.
 ## get\_users
 
     get_users()
-    get_users($room, query => { 'start-index' => 0, 'max-results' => 100 });
+    get_users(query => { 'start-index' => 0, 'max-results' => 100 });
 
 Example response:
 

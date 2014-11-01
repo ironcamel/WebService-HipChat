@@ -330,7 +330,7 @@ Removes a user from a room.
 =head2 get_users
 
     get_users()
-    get_users($room, query => { 'start-index' => 0, 'max-results' => 100 });
+    get_users(query => { 'start-index' => 0, 'max-results' => 100 });
 
 Example response:
 
