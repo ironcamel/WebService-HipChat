@@ -16,8 +16,8 @@ sub BUILD {
 }
 
 sub get_rooms {
-    my ($self) = @_;
-    return $self->get("/room");
+    my ($self, %args) = @_;
+    return $self->get("/room", $args{query} || {});
 }
 
 sub get_room {
@@ -63,9 +63,9 @@ sub send_notification {
 }
 
 sub get_webhooks {
-    my ($self, $room) = @_;
+    my ($self, $room, %args) = @_;
     croak '$room is required' unless $room;
-    return $self->get("/room/$room/webhook");
+    return $self->get("/room/$room/webhook", $args{query} || {});
 }
 
 sub create_webhook {
@@ -76,9 +76,9 @@ sub create_webhook {
 }
 
 sub get_members {
-    my ($self, $room) = @_;
+    my ($self, $room, %args) = @_;
     croak '$room is required' unless $room;
-    return $self->get("/room/$room/member");
+    return $self->get("/room/$room/member", $args{query} || {});
 }
 
 sub add_member {
@@ -96,8 +96,8 @@ sub remove_member {
 }
 
 sub get_users {
-    my ($self) = @_;
-    return $self->get("/user");
+    my ($self, %args) = @_;
+    return $self->get("/user", $args{query} || {});
 }
 
 sub get_user {
@@ -114,8 +114,8 @@ sub send_private_msg {
 }
 
 sub get_emoticons {
-    my ($self) = @_;
-    return $self->get("/emoticon");
+    my ($self, %args) = @_;
+    return $self->get("/emoticon", $args{query} || {});
 }
 
 sub get_emoticon {
@@ -159,6 +159,7 @@ If a resource does not exist for the given parameters, undef is returned.
 =head2 get_rooms
 
     get_rooms()
+    get_rooms(query => { 'start-index' => 0, 'max-results' => 100 });
 
 Example response:
 
@@ -255,6 +256,7 @@ Example response:
 =head2 get_webhooks
 
     get_webhooks($room)
+    get_webhooks($room, query => { 'start-index' => 0, 'max-results' => 100 });
 
 Example response:
 
@@ -289,6 +291,7 @@ Example response:
 =head2 get_members
 
     get_members($room);
+    get_members($room, query => { 'start-index' => 0, 'max-results' => 100 });
 
 Example response:
 
@@ -327,6 +330,7 @@ Removes a user from a room.
 =head2 get_users
 
     get_users()
+    get_users($room, query => { 'start-index' => 0, 'max-results' => 100 });
 
 Example response:
 
@@ -390,6 +394,7 @@ Example response:
 =head2 get_emoticons
 
     get_emoticons()
+    get_emoticons(query => { 'start-index' => 0, 'max-results' => 100 });
 
 Example response:
 

@@ -4,7 +4,7 @@ WebService::HipChat
 
 # VERSION
 
-version 0.0301
+version 0.0400
 
 # SYNOPSIS
 
@@ -34,6 +34,7 @@ If a resource does not exist for the given parameters, undef is returned.
 ## get\_rooms
 
     get_rooms()
+    get_rooms(query => { 'start-index' => 0, 'max-results' => 100 });
 
 Example response:
 
@@ -130,6 +131,7 @@ Example response:
 ## get\_webhooks
 
     get_webhooks($room)
+    get_webhooks($room, query => { 'start-index' => 0, 'max-results' => 100 });
 
 Example response:
 
@@ -164,6 +166,7 @@ Example response:
 ## get\_members
 
     get_members($room);
+    get_members($room, query => { 'start-index' => 0, 'max-results' => 100 });
 
 Example response:
 
@@ -202,6 +205,7 @@ Removes a user from a room.
 ## get\_users
 
     get_users()
+    get_users($room, query => { 'start-index' => 0, 'max-results' => 100 });
 
 Example response:
 
@@ -265,6 +269,7 @@ Example response:
 ## get\_emoticons
 
     get_emoticons()
+    get_emoticons(query => { 'start-index' => 0, 'max-results' => 100 });
 
 Example response:
 
