@@ -21,7 +21,7 @@ GetOptions(
 
 pod2usage(0) if $help;
 pod2usage('Error: --room is required') unless $room;
-pod2usage('Error: --auth_token or $HIPCHAT_AUTH_TOKEN env var is required')
+pod2usage('Error: --auth-token or $HIPCHAT_AUTH_TOKEN env var is required')
     unless $auth_token;
 
 my $msg = "@ARGV";
