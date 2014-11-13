@@ -124,6 +124,19 @@ sub get_emoticon {
     return $self->get("/emoticon/$emoticon");
 }
 
+sub get_room_history {
+    my ($self, $room, %args) = @_;
+    croak '$room is required' unless $room;
+    return $self->get("/room/$room/history/latest", $args{query} || {});
+}
+
+sub share_link {
+    my ($self, $room, $data) = @_;
+    croak '$room is required' unless $room;
+    croak '$data is required' unless 'HASH' eq ref $data;
+    return $self->post("/room/$room/share/link", $data);
+}
+
 sub next {
     my ($self, $data) = @_;
     croak '$data is required' unless 'HASH' eq ref $data;
@@ -432,6 +445,57 @@ Example response:
       url => "https://hipchat.com/files/img/emoticons/1/dog.png",
       width => 30,
     }
+
+=head2 get_room_history
+
+    $hc->get_room_history($room)
+    $hc->get_room_history($room, { 'max-results' => 5 });
+
+Example response:
+
+   {
+    items        [
+        [0] {
+            date       "2014-11-13T10:48:33.322506+00:00",
+            from       {
+                id             123456,
+                links          {
+                    self   "https://api.hipchat.com/v2/user/123456"
+                },
+                mention_name   "Bob",
+                name           "Bob Williams"
+            },
+            id         "38988c8c-9120-44ce-87c5-6731a7a3b6",
+            mentions   [],
+            message    "heres a message and a link http://www.sun.com/",
+            type       "message"
+        },
+        [1] {
+            date       "2014-11-13T10:49:02.377436+00:00",
+            from       {
+                id             123456,
+                links          {
+                    self   "https://api.hipchat.com/v2/user/123456"
+                },
+                mention_name   "Bob",
+                name           "Bob Williams"
+            },
+            id         "c1f47537-6506-4f46-b820-eaade5adc5",
+            mentions   [],
+            message    "A message",
+            type       "message"
+        }
+    ],
+    links        {
+        self   "https://api.hipchat.com/v2/room/XXX/history/latest"
+    },
+    maxResults   2,
+    startIndex   0
+   }
+
+=head2 share_link
+
+    $hc->share_link($room, { message => 'msg', link => 'http://www.sun.com' });
 
 =head2 next
 
