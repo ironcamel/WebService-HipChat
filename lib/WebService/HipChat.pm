@@ -1,6 +1,6 @@
 package WebService::HipChat;
 use Moo;
-with 'WebService::BaseClientRole';
+with 'WebService::Client';
 
 # VERSION
 
