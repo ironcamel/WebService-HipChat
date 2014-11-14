@@ -22,7 +22,7 @@ version 0.0500
 
 This module provides bindings for the
 [HipChat API v2](https://www.hipchat.com/docs/apiv2).
-It also provides the command line utility [hipchat-send](http://search.cpan.org/perldoc?hipchat-send).
+It also provides the command line utility [hipchat-send](https://metacpan.org/pod/hipchat-send).
 
 # METHODS
 
@@ -358,6 +358,10 @@ Example response:
 ## share\_link
 
     $hc->share_link($room, { message => 'msg', link => 'http://www.sun.com' });
+
+## share\_file
+
+    $hc->share_file($room, { message => 'msg', file => '/tmp/file.png' });
 
 ## next
 

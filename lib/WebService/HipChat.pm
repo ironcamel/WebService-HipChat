@@ -5,6 +5,9 @@ with 'WebService::Client';
 # VERSION
 
 use Carp qw(croak);
+use HTTP::Request::Common qw(POST);
+use MIME::Entity;
+use JSON qw(encode_json);
 
 has auth_token => ( is => 'ro', required => 1 );
 
@@ -142,6 +145,55 @@ sub next {
     croak '$data is required' unless 'HASH' eq ref $data;
     my $next = $data->{links}{next} or return undef;
     return $self->get($next);
+}
+
+sub share_file {
+    my ($self, $room, $data) = @_;
+    croak '$room is required' unless $room;
+    croak '$data is required' unless 'HASH' eq ref $data;
+
+    my $path = $self->_url("/room/$room/share/file");
+
+    my $msg       = $data->{message};
+    my $file      = $data->{file};
+
+    if (! -f $file) {
+        warn "File '$file' doesn't exist\n";
+        return;
+    }
+
+    my $boundary = 'boundary1234567890';
+
+    my $Mime = MIME::Entity->build(
+        Type     => 'multipart/related',
+        Boundary => $boundary,
+    );
+
+    if (defined($msg)) {
+        my $msg_json = encode_json({ message => $msg });
+        $Mime->attach( Type => 'application/json',
+                       Encoding => '7bit',
+                       Data => $msg_json);
+    }
+
+    $Mime->attach(
+        Path => $file,
+        Disposition => 'attachment; name="file"'
+    );
+
+    $Mime->make_multipart();
+
+    my $req = POST $path, content => $Mime->stringify_body();
+
+    ## Would be nicer to just pass in the content_type for this one request
+    my $orig_content_type = $self->content_type();
+    $self->content_type("multipart/related; boundary=\"$boundary\"");
+
+    my $rv = $self->req($req);
+
+    $self->content_type($orig_content_type);
+
+    return $rv;
 }
 
 =head1 SYNOPSIS
@@ -496,6 +548,10 @@ Example response:
 =head2 share_link
 
     $hc->share_link($room, { message => 'msg', link => 'http://www.sun.com' });
+
+=head2 share_file
+
+    $hc->share_file($room, { message => 'msg', file => '/tmp/file.png' });
 
 =head2 next
 
