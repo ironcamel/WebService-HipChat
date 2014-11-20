@@ -5,7 +5,6 @@ with 'WebService::Client';
 # VERSION
 
 use Carp qw(croak);
-use HTTP::Request::Common qw(POST);
 use MIME::Entity;
 use JSON qw(encode_json);
 
@@ -183,17 +182,12 @@ sub share_file {
 
     $Mime->make_multipart();
 
-    my $req = POST $path, content => $Mime->stringify_body();
-
-    ## Would be nicer to just pass in the content_type for this one request
-    my $orig_content_type = $self->content_type();
-    $self->content_type("multipart/related; boundary=\"$boundary\"");
-
-    my $rv = $self->req($req);
-
-    $self->content_type($orig_content_type);
-
-    return $rv;
+    return $self->post("/room/$room/share/file",
+                       $Mime->stringify_body(),
+                       headers => {
+                           'content_type' => "multipart/related; boundary=\"$boundary\"",
+                       }
+                   );
 }
 
 =head1 SYNOPSIS
