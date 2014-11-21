@@ -168,26 +168,28 @@ sub share_file {
         Boundary => $boundary,
     );
 
-    if (defined($msg)) {
+    if ( $msg ) {
         my $msg_json = encode_json({ message => $msg });
-        $Mime->attach( Type => 'application/json',
-                       Encoding => '7bit',
-                       Data => $msg_json);
+        $Mime->attach(
+            Type     => 'application/json',
+            Encoding => '7bit',
+            Data     => $msg_json,
+        );
     }
 
     $Mime->attach(
-        Path => $file,
+        Path        => $file,
         Disposition => 'attachment; name="file"'
     );
 
     $Mime->make_multipart();
 
     return $self->post("/room/$room/share/file",
-                       $Mime->stringify_body(),
-                       headers => {
-                           'content_type' => "multipart/related; boundary=\"$boundary\"",
-                       }
-                   );
+        $Mime->stringify_body(),
+        headers => {
+            'content_type' => "multipart/related; boundary=\"$boundary\"",
+        },
+    );
 }
 
 =head1 SYNOPSIS
@@ -560,6 +562,14 @@ Example:
     while ($res = $hc->next($res)) {
         push @emoticons, @{ $res->{items} };
     }
+
+=head1 CONTRIBUTORS
+
+=over
+
+=item Chris Hughes <chris@lokku.com>
+
+=back
 
 =cut
 

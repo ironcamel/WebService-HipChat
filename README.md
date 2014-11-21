@@ -4,7 +4,7 @@ WebService::HipChat
 
 # VERSION
 
-version 0.0500
+version 0.0600
 
 # SYNOPSIS
 
@@ -22,7 +22,7 @@ version 0.0500
 
 This module provides bindings for the
 [HipChat API v2](https://www.hipchat.com/docs/apiv2).
-It also provides the command line utility [hipchat-send](https://metacpan.org/pod/hipchat-send).
+It also provides the command line utility [hipchat-send](http://search.cpan.org/perldoc?hipchat-send).
 
 # METHODS
 
@@ -376,6 +376,10 @@ Example:
     while ($res = $hc->next($res)) {
         push @emoticons, @{ $res->{items} };
     }
+
+# CONTRIBUTORS
+
+- Chris Hughes <chris@lokku.com>
 
 # AUTHOR
 

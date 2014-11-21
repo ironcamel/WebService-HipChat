@@ -25,7 +25,6 @@ my %WriteMakefileArgs = (
   "PREREQ_PM" => {
     "Carp" => 0,
     "Getopt::Long" => 0,
-    "HTTP::Request::Common" => 0,
     "JSON" => 0,
     "MIME::Entity" => 0,
     "Moo" => "1.005000",
@@ -40,7 +39,7 @@ my %WriteMakefileArgs = (
     "IPC::Open3" => 0,
     "Test::More" => 0
   },
-  "VERSION" => "0.0500",
+  "VERSION" => "0.0600",
   "test" => {
     "TESTS" => "t/*.t"
   }
@@ -52,7 +51,6 @@ my %FallbackPrereqs = (
   "ExtUtils::MakeMaker" => 0,
   "File::Spec" => 0,
   "Getopt::Long" => 0,
-  "HTTP::Request::Common" => 0,
   "IO::Handle" => 0,
   "IPC::Open3" => 0,
   "JSON" => 0,
