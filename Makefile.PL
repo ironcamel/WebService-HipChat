@@ -29,7 +29,7 @@ my %WriteMakefileArgs = (
     "MIME::Entity" => 0,
     "Moo" => "1.005000",
     "Pod::Usage" => 0,
-    "WebService::Client" => "0.0100",
+    "WebService::Client" => "0.0203",
     "strict" => 0,
     "warnings" => 0
   },
@@ -39,7 +39,7 @@ my %WriteMakefileArgs = (
     "IPC::Open3" => 0,
     "Test::More" => 0
   },
-  "VERSION" => "0.0600",
+  "VERSION" => "0.0601",
   "test" => {
     "TESTS" => "t/*.t"
   }
@@ -58,7 +58,7 @@ my %FallbackPrereqs = (
   "Moo" => "1.005000",
   "Pod::Usage" => 0,
   "Test::More" => 0,
-  "WebService::Client" => "0.0100",
+  "WebService::Client" => "0.0203",
   "strict" => 0,
   "warnings" => 0
 );
