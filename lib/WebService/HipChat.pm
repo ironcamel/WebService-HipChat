@@ -77,6 +77,13 @@ sub create_webhook {
     return $self->post("/room/$room/webhook", $data);
 }
 
+sub delete_webhook {
+    my ($self, $room, $webhook_id) = @_;
+    croak '$room is required' unless $room;
+    croak '$webhook_id is required' unless $webhook_id;
+    return $self->delete("/room/$room/webhook/$webhook_id");
+}
+
 sub get_members {
     my ($self, $room, %args) = @_;
     croak '$room is required' unless $room;
