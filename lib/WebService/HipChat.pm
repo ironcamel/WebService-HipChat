@@ -70,6 +70,13 @@ sub get_webhooks {
     return $self->get("/room/$room/webhook", $args{query} || {});
 }
 
+sub get_webhook {
+    my ($self, $room, $webhook_id) = @_;
+    croak '$room is required' unless $room;
+    croak '$webhook_id is required' unless $webhook_id;
+    return $self->get("/room/$room/webhook/$webhook_id")
+}
+
 sub create_webhook {
     my ($self, $room, $data) = @_;
     croak '$room is required' unless $room;
@@ -344,6 +351,10 @@ Example response:
       startIndex => 0,
     }
 
+=head2 get_webhook
+
+    get_webhook($room, $webhook_id);
+
 =head2 create_webhook
 
     create_webhook($room, {
@@ -351,6 +362,10 @@ Example response:
         event => 'room_message',
         name  => 'hook1',
     });
+
+=head delete_webhook
+
+    delete_webhook($room, $webhook_id);
 
 =head2 send_private_msg
 
