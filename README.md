@@ -4,7 +4,7 @@ WebService::HipChat
 
 # VERSION
 
-version 0.0700
+version 0.0800
 
 # SYNOPSIS
 
@@ -151,6 +151,10 @@ Example response:
       startIndex => 0,
     }
 
+## get\_webhook
+
+    get_webhook($room, $webhook_id);
+
 ## create\_webhook
 
     create_webhook($room, {
@@ -158,6 +162,8 @@ Example response:
         event => 'room_message',
         name  => 'hook1',
     });
+
+    delete_webhook($room, $webhook_id);
 
 ## send\_private\_msg
 
