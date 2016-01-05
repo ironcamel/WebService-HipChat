@@ -5,18 +5,19 @@ use Getopt::Long qw(GetOptions);
 use Pod::Usage qw(pod2usage);
 use WebService::HipChat;
 
-my $room;
-my $color;
+my ($room, $color, $notify, $msg_format);
 my $help;
 my $auth_token = $ENV{HIPCHAT_AUTH_TOKEN};
 my $base_url = $ENV{HIPCHAT_BASE_URL};
 
 GetOptions(
-    "auth-token=s" => \$auth_token,
-    "base-url=s"   => \$base_url,
-    "color=s"      => \$color,
-    "help"         => \$help,
-    "room=s"       => \$room,
+    "auth-token=s"   => \$auth_token,
+    "base-url=s"     => \$base_url,
+    "color=s"        => \$color,
+    "f|msg-format=s" => \$msg_format,
+    "notify"         => \$notify,
+    "help"           => \$help,
+    "room=s"         => \$room,
 ) or die "Error: invalid command line arguments\n";
 
 pod2usage(0) if $help;
@@ -41,6 +42,8 @@ my $hc = WebService::HipChat->new(
 
 my $data = { message => $msg };
 $data->{color} = $color if $color;
+$data->{message_format} = $msg_format if $msg_format;
+$data->{notify} = ($notify ? 'true': 'false' );
 
 $hc->send_notification($room, $data);
 
@@ -74,5 +77,11 @@ Examples:
 
     -c, --color
         Optional. The background color for the message.
+
+    -f, --msg-format
+        Optional. [text|html]. The message format.
+
+    -n, --notify
+        Optional. Notify the room of message.
 
     -h, --help
