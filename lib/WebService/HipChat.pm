@@ -363,7 +363,7 @@ Example response:
         name  => 'hook1',
     });
 
-=head delete_webhook
+=head2 delete_webhook
 
     delete_webhook($room, $webhook_id);
 

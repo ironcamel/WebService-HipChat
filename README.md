@@ -4,7 +4,7 @@ WebService::HipChat
 
 # VERSION
 
-version 0.0800
+version 0.0900
 
 # SYNOPSIS
 
@@ -22,7 +22,7 @@ version 0.0800
 
 This module provides bindings for the
 [HipChat API v2](https://www.hipchat.com/docs/apiv2).
-It also provides the command line utility [hipchat-send](http://search.cpan.org/perldoc?hipchat-send).
+It also provides the command line utility [hipchat-send](https://metacpan.org/pod/hipchat-send).
 
 # METHODS
 
@@ -162,6 +162,8 @@ Example response:
         event => 'room_message',
         name  => 'hook1',
     });
+
+## delete\_webhook
 
     delete_webhook($room, $webhook_id);
 
