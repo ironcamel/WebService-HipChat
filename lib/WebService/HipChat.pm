@@ -129,7 +129,7 @@ sub send_private_msg {
     return $self->post("/user/$user/message", $data);
 }
 
-sub get_private_msg {
+sub get_private_history {
     my ($self, $user, %args) = @_;
     croak '$user is required' unless $user;
     return $self->get("/user/$user/history", $args{query} || {});
@@ -377,10 +377,10 @@ Example response:
 
     send_private_msg($user, { message => 'allo' });
 
-=head2 get_private_msg
+=head2 get_private_history
 
-    $hc->get_private_message($user)
-    $hc->get_private_message($user, query => { 'max-results' => 5 });
+    $hc->get_private_history($user)
+    $hc->get_private_history($user, query => { 'max-results' => 5 });
 
 Example response:
 

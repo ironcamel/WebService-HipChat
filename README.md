@@ -171,10 +171,10 @@ Example response:
 
     send_private_msg($user, { message => 'allo' });
 
-## get\_private\_msg
+## get\_private\_history
 
-    $hc->get_private_message($user)
-    $hc->get_private_message($user, query => { 'max-results' => 5 });
+    $hc->get_private_history($user)
+    $hc->get_private_history($user, query => { 'max-results' => 5 });
 
 Example response:
 
