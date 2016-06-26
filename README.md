@@ -171,6 +171,53 @@ Example response:
 
     send_private_msg($user, { message => 'allo' });
 
+## get\_private\_history
+
+    $hc->get_private_history($user)
+    $hc->get_private_history($user, query => { 'max-results' => 5 });
+
+Example response:
+
+    {
+     items        [
+         [0] {
+             date       "2014-11-13T10:48:33.322506+00:00",
+             from       {
+                 id             123456,
+                 links          {
+                     self   "https://api.hipchat.com/v2/user/123456"
+                 },
+                 mention_name   "Bob",
+                 name           "Bob Williams"
+             },
+             id         "38988c8c-9120-44ce-87c5-6731a7a3b6",
+             mentions   [],
+             message    "heres a message and a link http://www.sun.com/",
+             type       "message"
+         },
+         [1] {
+             date       "2014-11-13T10:49:02.377436+00:00",
+             from       {
+                 id             123456,
+                 links          {
+                     self   "https://api.hipchat.com/v2/user/123456"
+                 },
+                 mention_name   "Bob",
+                 name           "Bob Williams"
+             },
+             id         "c1f47537-6506-4f46-b820-eaade5adc5",
+             mentions   [],
+             message    "A message",
+             type       "message"
+         }
+     ],
+     links        {
+         self   "https://api.hipchat.com/v2/user/123456/history/"
+     },
+     maxResults   5,
+     startIndex   0
+    }
+
 ## get\_members
 
     get_members($room);
