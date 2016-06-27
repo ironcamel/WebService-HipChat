@@ -122,6 +122,12 @@ sub get_user {
     return $self->get("/user/$user");
 }
 
+sub delete_user {
+    my ($self, $user) = @_;
+    croak '$user is required' unless $user;
+    return $self->delete("/user/$user");
+}
+
 sub send_private_msg {
     my ($self, $user, $data) = @_;
     croak '$user is required' unless $user;
@@ -526,6 +532,10 @@ Example response:
       title          => "Hacker",
       xmpp_jid       => '1_1@chat.hipchat.com',
     }
+
+=head2 delete_user
+
+    delete_user($user)
 
 =head2 get_emoticons
 

@@ -321,6 +321,10 @@ Example response:
       xmpp_jid       => '1_1@chat.hipchat.com',
     }
 
+## delete\_user
+
+    delete_user($user)
+
 ## get\_emoticons
 
     get_emoticons()
