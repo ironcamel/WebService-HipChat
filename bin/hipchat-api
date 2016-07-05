@@ -26,7 +26,7 @@ my @api_cmds = qw( get_rooms get_room create_room update_room set_topic
                    delete_webhook get_members add_member remove_member
                    get_users get_user send_private_msg get_emoticons
                    get_emoticon get_room_history share_link share_file
-                   get_private_history
+                   get_private_history delete_user
              );
 
 # Extra cmds/opts we require for individual API commands
