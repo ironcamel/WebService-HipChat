@@ -663,13 +663,21 @@ Example:
 
 =over
 
-=item Chris C. <https://github.com/centreti>
+=item *
 
-=item Chris Hughes <https://github.com/chrisspang>
+Chris C. <L<https://github.com/centreti>>
 
-=item Ken-ichi Mito <https://github.com/mittyorz>
+=item *
 
-=item Tim Man <https://github.com/teebszet>
+Chris Hughes <L<https://github.com/chrisspang>>
+
+=item *
+
+Ken-ichi Mito <L<https://github.com/mittyorz>>
+
+=item *
+
+Tim Man <L<https://github.com/teebszet>>
 
 =back
 

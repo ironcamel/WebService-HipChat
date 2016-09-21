@@ -442,10 +442,10 @@ Example:
 
 # CONTRIBUTORS
 
-- Chris C. &lt;https://github.com/centreti>
-- Chris Hughes &lt;https://github.com/chrisspang>
-- Ken-ichi Mito &lt;https://github.com/mittyorz>
-- Tim Man &lt;https://github.com/teebszet>
+- Chris C. <[https://github.com/centreti](https://github.com/centreti)>
+- Chris Hughes <[https://github.com/chrisspang](https://github.com/chrisspang)>
+- Ken-ichi Mito <[https://github.com/mittyorz](https://github.com/mittyorz)>
+- Tim Man <[https://github.com/teebszet](https://github.com/teebszet)>
 
 # AUTHOR
 
