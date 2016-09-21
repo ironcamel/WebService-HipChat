@@ -663,7 +663,13 @@ Example:
 
 =over
 
-=item Chris Hughes <chris@lokku.com>
+=item Chris C. <https://github.com/centreti>
+
+=item Chris Hughes <https://github.com/chrisspang>
+
+=item Ken-ichi Mito <https://github.com/mittyorz>
+
+=item Tim Man <https://github.com/teebszet>
 
 =back
 

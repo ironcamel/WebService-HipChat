@@ -4,7 +4,7 @@ WebService::HipChat
 
 # VERSION
 
-version 0.0900
+version 0.1000
 
 # SYNOPSIS
 
@@ -171,6 +171,10 @@ Example response:
 
     send_private_msg($user, { message => 'allo' });
 
+## send\_room\_msg
+
+    send_room_msg($room, { message => 'allo' });
+
 ## get\_private\_history
 
     $hc->get_private_history($user)
@@ -212,7 +216,7 @@ Example response:
          }
      ],
      links        {
-         self   "https://api.hipchat.com/v2/user/123456/history/"
+         self   "https://api.hipchat.com/v2/user/123456/history"
      },
      maxResults   5,
      startIndex   0
@@ -438,7 +442,10 @@ Example:
 
 # CONTRIBUTORS
 
-- Chris Hughes <chris@lokku.com>
+- Chris C. &lt;https://github.com/centreti>
+- Chris Hughes &lt;https://github.com/chrisspang>
+- Ken-ichi Mito &lt;https://github.com/mittyorz>
+- Tim Man &lt;https://github.com/teebszet>
 
 # AUTHOR
 
