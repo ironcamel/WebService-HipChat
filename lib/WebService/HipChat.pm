@@ -135,6 +135,13 @@ sub send_private_msg {
     return $self->post("/user/$user/message", $data);
 }
 
+sub send_room_msg {
+    my ($self, $room, $data) = @_;
+    croak '$room is required' unless $room;
+    croak '$data is required' unless 'HASH' eq ref $data;
+    return $self->post("/room/$room/message", $data);
+}
+
 sub get_private_history {
     my ($self, $user, %args) = @_;
     croak '$user is required' unless $user;
@@ -382,6 +389,10 @@ Example response:
 =head2 send_private_msg
 
     send_private_msg($user, { message => 'allo' });
+
+=head2 send_room_msg
+
+    send_room_msg($room, { message => 'allo' });
 
 =head2 get_private_history
 
