@@ -7,6 +7,7 @@ with 'WebService::Client';
 use Carp qw(croak);
 use MIME::Entity;
 use JSON qw(encode_json);
+use Email::Valid ();
 
 has auth_token => ( is => 'ro', required => 1 );
 
@@ -180,12 +181,15 @@ sub next {
 }
 
 sub share_file {
-    my ($self, $room, $data) = @_;
-    croak '$room is required' unless $room;
+    my ($self, $destination, $data) = @_;
+    croak '$destination is required' unless $destination;
     croak '$data is required' unless 'HASH' eq ref $data;
 
-    my $path = $self->_url("/room/$room/share/file");
+    # NOTE a $path once was made here, but it never got used. Commenting out for now.
+    # my $path = $self->_url("/room/$room/share/file");
 
+    # Users may be referenced by '@' name OR email address per https://www.hipchat.com/docs/apiv2/method/share_file_with_user
+    my $api_type  = ( substr($destination, 0, 1) eq '@' || Email::Valid->address($destination) ) ? 'user' : 'room';
     my $msg       = $data->{message};
     my $file      = $data->{file};
 
@@ -217,7 +221,7 @@ sub share_file {
 
     $Mime->make_multipart();
 
-    return $self->post("/room/$room/share/file",
+    return $self->post("/$api_type/$destination/share/file",
         $Mime->stringify_body(),
         headers => {
             'content_type' => "multipart/related; boundary=\"$boundary\"",
@@ -643,7 +647,10 @@ Example response:
 
 =head2 share_file
 
-    $hc->share_file($room, { message => 'msg', file => '/tmp/file.png' });
+    $hc->share_file($destination, { message => 'msg', file => '/tmp/file.png' });
+
+Shares files with $destination, whether that be a room OR a user. If sent to a user, make sure it is their '@' name OR email address. Otherwise we'll think it is a room.
+For example: '@JohnQPublic' OR 'johnq@public.test instead of 'SomeRoom'
 
 =head2 next
 
