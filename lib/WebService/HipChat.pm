@@ -7,7 +7,6 @@ with 'WebService::Client';
 use Carp qw(croak);
 use MIME::Entity;
 use JSON qw(encode_json);
-use Email::Valid ();
 
 has auth_token => ( is => 'ro', required => 1 );
 
@@ -185,11 +184,9 @@ sub share_file {
     croak '$destination is required' unless $destination;
     croak '$data is required' unless 'HASH' eq ref $data;
 
-    # NOTE a $path once was made here, but it never got used. Commenting out for now.
-    # my $path = $self->_url("/room/$room/share/file");
-
-    # Users may be referenced by '@' name OR email address per https://www.hipchat.com/docs/apiv2/method/share_file_with_user
-    my $api_type  = ( substr($destination, 0, 1) eq '@' || Email::Valid->address($destination) ) ? 'user' : 'room';
+    # Users may be referenced by '@' name OR email address per
+    # https://www.hipchat.com/docs/apiv2/method/share_file_with_user
+    my $api_type  = ( $destination =~ /\@/ ) ? 'user' : 'room';
     my $msg       = $data->{message};
     my $file      = $data->{file};
 
