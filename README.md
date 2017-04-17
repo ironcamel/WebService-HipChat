@@ -4,7 +4,7 @@ WebService::HipChat
 
 # VERSION
 
-version 0.1002
+version 0.2000
 
 # SYNOPSIS
 
@@ -424,7 +424,10 @@ Example response:
 
 ## share\_file
 
-    $hc->share_file($room, { message => 'msg', file => '/tmp/file.png' });
+    $hc->share_file($destination, { message => 'msg', file => '/tmp/file.png' });
+
+Shares files with $destination, whether that be a room OR a user. If sent to a user, make sure it is their '@' name OR email address. Otherwise we'll think it is a room.
+For example: '@JohnQPublic' OR 'johnq@public.test instead of 'SomeRoom'
 
 ## next
 
@@ -442,6 +445,7 @@ Example:
 
 # CONTRIBUTORS
 
+- Andy Baugh <[https://github.com/troglodyne](https://github.com/troglodyne)>
 - Chris C. <[https://github.com/centreti](https://github.com/centreti)>
 - Chris Hughes <[https://github.com/chrisspang](https://github.com/chrisspang)>
 - Ken-ichi Mito <[https://github.com/mittyorz](https://github.com/mittyorz)>

@@ -669,6 +669,10 @@ Example:
 
 =item *
 
+Andy Baugh <L<https://github.com/troglodyne>>
+
+=item *
+
 Chris C. <L<https://github.com/centreti>>
 
 =item *
